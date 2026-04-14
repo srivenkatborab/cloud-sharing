@@ -33,10 +33,11 @@ npm install -g pm2
 echo "=== [3/6] Installing Python backend dependencies ==="
 cd /home/ubuntu/cloud-sharing-2
 
-# Install cloudshare-lib from PyPI
-pip3 install cloudshare-lib==0.1.0
+# cloudshare-lib is a local library bundled in this repo (not on public PyPI).
+# Install it directly from the pre-built wheel.
+pip3 install cloudshare-lib/dist/cloudshare_lib-0.1.0-py3-none-any.whl
 
-# Install backend requirements
+# Install backend requirements (cloudshare-lib is already installed above)
 pip3 install -r backend/requirements.txt
 
 echo "=== [4/6] Building Next.js frontend ==="
