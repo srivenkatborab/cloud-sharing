@@ -12,6 +12,12 @@ build/
 *.whl
 MANIFEST
 
+# ─── Exceptions: cloudshare-lib wheel must ship with the repo ─────────────────
+# The wheel is not on public PyPI — EC2 installs it directly from this path.
+!cloudshare-lib/dist/
+!cloudshare-lib/dist/*.whl
+!cloudshare-lib/cloudshare_lib.egg-info/
+
 # Virtual environments
 .venv/
 venv/

@@ -32,7 +32,7 @@ apt-get install -y nodejs
 npm install -g pm2
 
 echo "=== [3/6] Installing Python backend dependencies ==="
-cd /home/ubuntu/cloud-sharing-2
+cd /home/ubuntu/cloud-sharing
 
 # cloudshare-lib is a local library bundled in this repo (not on public PyPI).
 # Install it directly from the pre-built wheel.
@@ -44,28 +44,28 @@ pip3 install --break-system-packages cloudshare-lib/dist/cloudshare_lib-0.1.0-py
 pip3 install --break-system-packages -r backend/requirements.txt
 
 echo "=== [4/6] Building Next.js frontend ==="
-cd /home/ubuntu/cloud-sharing-2/frontend
+cd /home/ubuntu/cloud-sharing/frontend
 npm install
 npm run build
 
 echo "=== [5/6] Configuring Nginx ==="
-cp /home/ubuntu/cloud-sharing-2/nginx/nginx.conf /etc/nginx/sites-available/default
+cp /home/ubuntu/cloud-sharing/nginx/nginx.conf /etc/nginx/sites-available/default
 nginx -t  # Test config before applying
 systemctl restart nginx
 systemctl enable nginx
 
 echo "=== [6/6] Starting application processes with PM2 ==="
-cd /home/ubuntu/cloud-sharing-2
+cd /home/ubuntu/cloud-sharing
 
 # Start FastAPI backend
 pm2 start "uvicorn app.main:app --host 0.0.0.0 --port 8000" \
   --name cloudshare-api \
-  --cwd /home/ubuntu/cloud-sharing-2/backend
+  --cwd /home/ubuntu/cloud-sharing/backend
 
 # Start Next.js frontend
 pm2 start "npm start" \
   --name cloudshare-frontend \
-  --cwd /home/ubuntu/cloud-sharing-2/frontend
+  --cwd /home/ubuntu/cloud-sharing/frontend
 
 # Save PM2 process list so it restarts on reboot
 pm2 save
