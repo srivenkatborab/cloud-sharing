@@ -73,8 +73,15 @@ pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
 echo ""
 echo "=== Setup complete! ==="
-echo "Backend API:  http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)/api/health"
-echo "Frontend:     http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
+# Get public IP (IMDSv2-compatible)
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" 2>/dev/null)
+PUBLIC_IP=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/public-ipv4 2>/dev/null)
+# Fallback if metadata unavailable
+[ -z "$PUBLIC_IP" ] && PUBLIC_IP=$(curl -s http://checkip.amazonaws.com)
+echo "Backend API:  http://$PUBLIC_IP/api/health"
+echo "Frontend:     http://$PUBLIC_IP"
 echo ""
 echo "To view logs: pm2 logs"
 echo "To restart:   pm2 restart all"
