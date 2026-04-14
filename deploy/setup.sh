@@ -38,10 +38,10 @@ cd /home/ubuntu/cloud-sharing
 # Install it directly from the pre-built wheel.
 # Ubuntu 24.04 enforces PEP 668 — use --break-system-packages for system-wide installs
 # (or use a venv, but PM2 needs the system python path)
-pip3 install --break-system-packages cloudshare-lib/dist/cloudshare_lib-0.1.0-py3-none-any.whl
+pip3 install --break-system-packages --ignore-installed cloudshare-lib/dist/cloudshare_lib-0.1.0-py3-none-any.whl
 
 # Install backend requirements (cloudshare-lib is already installed above)
-pip3 install --break-system-packages -r backend/requirements.txt
+pip3 install --break-system-packages --ignore-installed -r backend/requirements.txt
 
 echo "=== [4/6] Building Next.js frontend ==="
 cd /home/ubuntu/cloud-sharing/frontend
