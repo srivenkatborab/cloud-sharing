@@ -2,7 +2,7 @@
 # =============================================================================
 # CloudShare EC2 Setup Script
 # =============================================================================
-# Run this ONCE on a fresh Ubuntu 22.04 EC2 instance after cloning the repo.
+# Run this ONCE on a fresh Ubuntu 22.04/24.04 EC2 instance after cloning the repo.
 # Before running:
 #   1. Fill in /etc/environment with the AWS resource values (see .env.example)
 #   2. Ensure the EC2 instance has an IAM Role attached with:
@@ -20,8 +20,9 @@ echo "=== [1/6] Updating system packages ==="
 apt-get update -y
 apt-get upgrade -y
 
-echo "=== [2/6] Installing Python 3.11, pip, Node 20, npm, nginx ==="
-apt-get install -y python3.11 python3.11-venv python3-pip nginx curl
+echo "=== [2/6] Installing Python 3.12, pip, Node 20, npm, nginx ==="
+# Ubuntu 24.04 (Noble) ships python3.12 — python3.11 is not in its repos.
+apt-get install -y python3.12 python3.12-venv python3-pip nginx curl
 
 # Install Node.js 20 via NodeSource
 curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
@@ -35,10 +36,12 @@ cd /home/ubuntu/cloud-sharing-2
 
 # cloudshare-lib is a local library bundled in this repo (not on public PyPI).
 # Install it directly from the pre-built wheel.
-pip3 install cloudshare-lib/dist/cloudshare_lib-0.1.0-py3-none-any.whl
+# Ubuntu 24.04 enforces PEP 668 — use --break-system-packages for system-wide installs
+# (or use a venv, but PM2 needs the system python path)
+pip3 install --break-system-packages cloudshare-lib/dist/cloudshare_lib-0.1.0-py3-none-any.whl
 
 # Install backend requirements (cloudshare-lib is already installed above)
-pip3 install -r backend/requirements.txt
+pip3 install --break-system-packages -r backend/requirements.txt
 
 echo "=== [4/6] Building Next.js frontend ==="
 cd /home/ubuntu/cloud-sharing-2/frontend
