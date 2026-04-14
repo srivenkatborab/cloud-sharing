@@ -1,0 +1,147 @@
+Project Brief — Cloud-Based File Sharing System
+1. Introduction
+The Cloud-Based File Sharing System is a web-based application developed using Amazon Web Services (AWS) cloud technologies to enable secure file storage, management, and sharing between users. The project demonstrates the practical implementation of cloud platform programming concepts by integrating multiple AWS managed services into a scalable and reliable application.
+
+The system allows users to upload files, store them securely in cloud storage, share files with other users, and receive notifications regarding file activities. The application follows modern cloud architecture principles such as decoupling, scalability, managed infrastructure, and secure access control.
+
+2. Project Motivation
+In previous cloud projects, applications required login credentials immediately after opening the application link, which made it difficult for evaluators to verify deployment success without authentication details. To avoid this issue, this project adopts a dashboard-first access design.
+
+When the application URL is opened, the main web application loads directly, allowing lecturers or users to instantly confirm that the system is running correctly. Authentication is required only when accessing protected features such as uploading or sharing files.
+
+This approach improves usability, accessibility, and evaluation efficiency.
+
+3. Project Objectives
+The main objectives of this project are:
+
+To design and develop a cloud-native file sharing application.
+
+To implement at least five AWS cloud services in a practical scenario.
+
+To demonstrate secure file storage using cloud infrastructure.
+
+To implement asynchronous communication using cloud messaging services.
+
+To provide authenticated access for protected operations.
+
+To deploy a fully functional web application accessible through a public URL.
+
+4. System Overview
+The application provides a centralized platform where users can manage files using cloud services.
+
+The system allows users to:
+Access the application dashboard without login.
+
+Register and log into the system securely.
+
+Upload files to cloud storage.
+
+View and manage uploaded files.
+
+Share files with other users.
+
+Receive notifications when files are shared or updated.
+
+Download stored files securely.
+
+The architecture separates public access from authenticated operations to maintain both usability and security.
+
+5. Application Access Design
+5.1 Public Dashboard (Unauthenticated Access)
+When users open the application link:
+
+The main dashboard loads automatically.
+
+Users can view the interface and confirm system availability.
+
+Login and registration options are available in the navigation menu.
+
+File operations are restricted until authentication.
+
+This ensures lecturers can immediately test application functionality without login barriers.
+
+5.2 Authenticated User Access
+After successful login, users gain access to advanced features:
+
+File upload
+
+File listing and management
+
+File download
+
+File sharing with other users
+
+Notification services
+
+Access control ensures users interact only with authorized resources.
+
+6. AWS Cloud Services Used
+The project integrates the following AWS services:
+
+Amazon S3
+Used for storing uploaded files as objects in cloud storage buckets. It provides scalable and durable storage for user files.
+
+Amazon DynamoDB
+Used as a NoSQL database to store file metadata such as file name, owner, upload time, and sharing permissions.
+
+Amazon SQS (Simple Queue Service)
+Used to manage asynchronous background processing tasks such as file-sharing operations and system updates. It decouples application components and improves reliability.
+
+Amazon SNS (Simple Notification Service)
+Used to send notifications when files are uploaded or shared with other users.
+
+Amazon Cognito
+Used for user authentication and authorization, ensuring secure access to protected features.
+
+7. System Workflow
+User opens application URL.
+
+Public dashboard loads without login.
+
+User selects login/register option.
+
+Authentication is handled securely.
+
+User uploads a file.
+
+File is stored in cloud storage.
+
+Metadata is saved in the database.
+
+Background tasks are placed in a message queue.
+
+Notifications are sent to users when files are shared.
+
+Authorized users can download or manage files.
+
+8. Key Features
+Dashboard-first application access
+
+Secure authentication system
+
+Cloud-based file storage
+
+File sharing functionality
+
+Notification system
+
+Asynchronous processing using message queues
+
+Scalable cloud architecture
+
+9. Non-Functional Requirements
+Security: Authentication and access control protect user data.
+
+Scalability: Managed AWS services support increasing workloads.
+
+Availability: Cloud infrastructure ensures high uptime.
+
+Reliability: Message queues prevent data loss during processing.
+
+Usability: Simple and accessible user interface.
+
+10. Expected Outcome
+The final system will be a fully deployed cloud application that demonstrates real-world use of AWS cloud services in building a scalable file-sharing platform. The project showcases cloud storage, messaging, authentication, and distributed system design principles.
+
+11. Conclusion
+This project illustrates how modern cloud platforms can be used to build secure and scalable applications without managing underlying infrastructure. By integrating multiple AWS services, the Cloud-Based File Sharing System demonstrates practical cloud programming skills and provides a real-world example of cloud-native application development
